@@ -10,19 +10,18 @@
     <meta name="keywords" content="essayage virtuel, IA, mode, vêtements, shopping, francophone">
     <meta name="author" content="EssayageAI">
     
-    <!-- Open Graph (partage réseaux) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="EssayageAI - Essayage virtuel par IA">
     <meta property="og:description" content="Essayez vos vêtements avant de les acheter. Magique !">
     <meta property="og:url" content="https://essayageai.com">
     
-    <!-- Favicon émoji -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👕</text></svg>">
     
-    <!-- Font Awesome (icônes) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ===== STYLES CSS ===== */
         * {
             margin: 0;
             padding: 0;
@@ -117,7 +116,6 @@
 
         .btn-small:hover {
             background: var(--primary-dark);
-            color: white !important;
         }
 
         /* Hero section */
@@ -143,8 +141,6 @@
 
         .highlight {
             color: var(--primary);
-            position: relative;
-            display: inline-block;
         }
 
         .subtitle {
@@ -153,7 +149,6 @@
             margin-bottom: 30px;
         }
 
-        /* Bouton principal (remplace le formulaire) */
         .cta-button {
             margin: 30px 0;
         }
@@ -179,11 +174,6 @@
             transform: translateY(-3px);
         }
 
-        .btn-large i {
-            font-size: 1.2rem;
-        }
-
-        /* Badges confiance */
         .trust-badges {
             display: flex;
             gap: 20px;
@@ -202,27 +192,38 @@
             color: var(--primary);
         }
 
-        /* Carte démo */
+        /* Demo card - AVEC TEXTE SOUS IMAGES ET ALIGNEMENT PARFAIT */
         .demo-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .demo-card:hover {
+            transform: scale(1.02);
         }
 
         .demo-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 10px;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .demo-header span {
             background: var(--light);
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
         }
 
         .demo-header i {
             color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .demo-body {
@@ -233,32 +234,67 @@
         .demo-row {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
-        .demo-before, .demo-cloth, .demo-result {
+        /* Conteneur pour chaque élément (image + texte) */
+        .demo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            min-width: 100px;
+        }
+
+        .demo-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            border: 3px solid var(--gray);
+            transition: all 0.3s;
+        }
+
+        .demo-item:hover img {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .demo-item .item-label {
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-weight: 500;
             text-align: center;
         }
 
-        .demo-before img, .demo-cloth img, .demo-result img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            background: var(--light);
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid var(--gray);
-        }
-
-        .demo-result img {
+        /* Style spécial pour le résultat */
+        .demo-item.result img {
             border-color: var(--primary);
+            background: rgba(66, 153, 225, 0.1);
         }
 
-        .demo-row i {
-            color: var(--gray);
-            font-size: 20px;
+        .demo-item.result .item-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Icônes + et = */
+        .demo-icon {
+            color: var(--primary);
+            font-size: 24px;
+            background: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            margin: 0 5px;
         }
 
         /* Features */
@@ -345,7 +381,6 @@
 
         .step-content h3 {
             margin-bottom: 10px;
-            color: var(--dark);
         }
 
         /* Use cases */
@@ -382,7 +417,7 @@
             margin-bottom: 15px;
         }
 
-        /* CTA final */
+        /* Final CTA */
         .final-cta {
             text-align: center;
             padding: 60px 0;
@@ -479,7 +514,6 @@
             color: white;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero .container {
                 grid-template-columns: 1fr;
@@ -492,11 +526,24 @@
             .nav-links {
                 display: none;
             }
+            
+            .demo-row {
+                gap: 10px;
+            }
+            
+            .demo-item img {
+                width: 70px;
+                height: 70px;
+                padding: 10px;
+            }
+            
+            .demo-item {
+                min-width: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="logo">
@@ -511,7 +558,6 @@
         </div>
     </nav>
 
-    <!-- Hero section -->
     <header class="hero">
         <div class="container">
             <div class="hero-content">
@@ -534,26 +580,34 @@
             <div class="hero-image">
                 <div class="demo-card">
                     <div class="demo-header">
-                        <span>👤 Vous</span>
+                        <span>👤 VOUS</span>
                         <i class="fas fa-plus"></i>
-                        <span>👕 Vêtement</span>
+                        <span>👕 VÊTEMENT</span>
                         <i class="fas fa-equals"></i>
+                        <span>✨ RÉSULTAT</span>
                     </div>
                     <div class="demo-body">
                         <div class="demo-row">
-                            <div class="demo-before">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%23ccc'/%3E%3C/svg%3E" alt="Vous">
-                                <span>Photo vous</span>
+                            <!-- Photo vous avec texte -->
+                            <div class="demo-item">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%23ccc'/%3E%3C/svg%3E" alt="Votre photo">
+                                <span class="item-label">Votre photo</span>
                             </div>
-                            <i class="fas fa-plus"></i>
-                            <div class="demo-cloth">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='60' viewBox='0 0 50 60'%3E%3Crect x='10' y='10' width='30' height='40' fill='%234299e1'/%3E%3C/svg%3E" alt="Chemise">
-                                <span>Chemise</span>
+                            
+                            <span class="demo-icon"><i class="fas fa-plus"></i></span>
+                            
+                            <!-- Vêtement avec texte -->
+                            <div class="demo-item">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='60' viewBox='0 0 50 60'%3E%3Crect x='10' y='10' width='30' height='40' fill='%234299e1'/%3E%3C/svg%3E" alt="Vêtement">
+                                <span class="item-label">Chemise bleue</span>
                             </div>
-                            <i class="fas fa-equals"></i>
-                            <div class="demo-result">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%234299e1'/%3E%3C/svg%3E" alt="Résultat">
-                                <span>Résultat IA</span>
+                            
+                            <span class="demo-icon"><i class="fas fa-equals"></i></span>
+                            
+                            <!-- Résultat avec texte (mis en valeur) -->
+                            <div class="demo-item result">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%234299e1'/%3E%3C/svg%3E" alt="Résultat IA">
+                                <span class="item-label">Résultat IA</span>
                             </div>
                         </div>
                     </div>
@@ -562,7 +616,6 @@
         </div>
     </header>
 
-    <!-- Features -->
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Comment ça <span class="highlight">change tout</span></h2>
@@ -599,7 +652,6 @@
         </div>
     </section>
 
-    <!-- How it works -->
     <section id="how-it-works" class="how-it-works">
         <div class="container">
             <h2 class="section-title">3 étapes <span class="highlight">magiques</span></h2>
@@ -629,7 +681,6 @@
         </div>
     </section>
 
-    <!-- Use cases -->
     <section class="use-cases">
         <div class="container">
             <h2 class="section-title">Pour <span class="highlight">vous</span> qui ?</h2>
@@ -653,7 +704,6 @@
         </div>
     </section>
 
-    <!-- Final CTA -->
     <section class="final-cta">
         <div class="container">
             <h2>Prêt à révolutionner votre shopping ?</h2>
@@ -664,7 +714,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
