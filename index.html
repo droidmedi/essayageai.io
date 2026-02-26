@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EssayageAI - Essayez vos vêtements par IA</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Essayez virtuellement vos vêtements avant de les acheter. Prenez une photo en magasin et voyez le résultat instantanément par IA.">
+    <meta name="keywords" content="essayage virtuel, IA, mode, vêtements, shopping, francophone">
+    <meta name="author" content="EssayageAI">
+    
+    <!-- Open Graph (partage réseaux) -->
+    <meta property="og:title" content="EssayageAI - Essayage virtuel par IA">
+    <meta property="og:description" content="Essayez vos vêtements avant de les acheter. Magique !">
+    <meta property="og:url" content="https://essayageai.com">
+    
+    <!-- Favicon émoji -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👕</text></svg>">
+    
+    <!-- Font Awesome (icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ===== STYLES CSS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4299e1;
+            --primary-dark: #2b6cb0;
+            --secondary: #ed8936;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --gray: #a0aec0;
+            --success: #48bb78;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            color: var(--dark);
+        }
+
+        .ai {
+            color: var(--primary);
+            margin-left: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-small {
+            background: var(--primary);
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s !important;
+        }
+
+        .btn-small:hover {
+            background: var(--primary-dark);
+            color: white !important;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .highlight {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+
+        /* Bouton principal (remplace le formulaire) */
+        .cta-button {
+            margin: 30px 0;
+        }
+
+        .btn-large {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+        }
+
+        .btn-large:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .btn-large i {
+            font-size: 1.2rem;
+        }
+
+        /* Badges confiance */
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .trust-badges span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .trust-badges i {
+            color: var(--primary);
+        }
+
+        /* Carte démo */
+        .demo-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .demo-header i {
+            color: var(--primary);
+        }
+
+        .demo-body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .demo-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .demo-before, .demo-cloth, .demo-result {
+            text-align: center;
+        }
+
+        .demo-before img, .demo-cloth img, .demo-result img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: var(--light);
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid var(--gray);
+        }
+
+        .demo-result img {
+            border-color: var(--primary);
+        }
+
+        .demo-row i {
+            color: var(--gray);
+            font-size: 20px;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .feature-icon i {
+            font-size: 40px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        /* Use cases */
+        .use-cases {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .case-card {
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            background: var(--light);
+            transition: transform 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-card i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .case-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* CTA final */
+        .final-cta {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+
+        .footer-bottom a {
+            color: var(--gray);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">👕</span>
+                <span class="logo-text">Essayage<span class="ai">AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Fonctionnalités</a>
+                <a href="#how-it-works">Comment ça marche</a>
+                <a href="#contact" class="btn-small">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Essayez vos vêtements <span class="highlight">avant d'acheter</span></h1>
+                <p class="subtitle">Prenez une photo en magasin, notre IA génère votre photo avec le vêtement. Magique, non ?</p>
+                
+                <div class="cta-button">
+                    <button class="btn-large" onclick="window.location.href='#features'">
+                        <i class="fas fa-magic"></i> Découvrir
+                    </button>
+                </div>
+                
+                <div class="trust-badges">
+                    <span><i class="fas fa-robot"></i> 100% IA</span>
+                    <span><i class="fas fa-bolt"></i> Instantané</span>
+                    <span><i class="fas fa-lock"></i> Photos privées</span>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="demo-card">
+                    <div class="demo-header">
+                        <span>👤 Vous</span>
+                        <i class="fas fa-plus"></i>
+                        <span>👕 Vêtement</span>
+                        <i class="fas fa-equals"></i>
+                    </div>
+                    <div class="demo-body">
+                        <div class="demo-row">
+                            <div class="demo-before">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%23ccc'/%3E%3C/svg%3E" alt="Vous">
+                                <span>Photo vous</span>
+                            </div>
+                            <i class="fas fa-plus"></i>
+                            <div class="demo-cloth">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='60' viewBox='0 0 50 60'%3E%3Crect x='10' y='10' width='30' height='40' fill='%234299e1'/%3E%3C/svg%3E" alt="Chemise">
+                                <span>Chemise</span>
+                            </div>
+                            <i class="fas fa-equals"></i>
+                            <div class="demo-result">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='15' fill='%23ccc'/%3E%3Crect x='25' y='45' width='30' height='30' fill='%234299e1'/%3E%3C/svg%3E" alt="Résultat">
+                                <span>Résultat IA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Comment ça <span class="highlight">change tout</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Photo en magasin</h3>
+                    <p>Prenez en photo le vêtement que vous hésitez à acheter, directement en boutique.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <h3>Photo de vous</h3>
+                    <p>Une seule photo de vous suffit. Notre IA fait le reste.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Génération IA</h3>
+                    <p>En quelques secondes, voyez le résultat : vous avec le vêtement porté.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Plusieurs couleurs</h3>
+                    <p>La même chemise en bleu, rouge ou vert ? Visualisez toutes les options.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">3 étapes <span class="highlight">magiques</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Prenez votre photo</h3>
+                        <p>Une photo de vous en tenue simple. Une seule fois suffit.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Photo du vêtement</h3>
+                        <p>En magasin, prenez en photo la pièce qui vous tente.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>L'IA s'occupe du reste</h3>
+                        <p>Recevez instantanément votre photo avec le vêtement porté.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use cases -->
+    <section class="use-cases">
+        <div class="container">
+            <h2 class="section-title">Pour <span class="highlight">vous</span> qui ?</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Acheteurs hésitants</h3>
+                    <p>Fini le doute : voyez le résultat avant d'acheter.</p>
+                </div>
+                <div class="case-card">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Boutiques</h3>
+                    <p>Proposez l'essayage virtuel à vos clients. Moins de retours.</p>
+                </div>
+                <div class="case-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Cadeaux</h3>
+                    <p>Offrez un vêtement sans stress, visualisez-le avant.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Prêt à révolutionner votre shopping ?</h2>
+            <p>Rejoignez les premiers utilisateurs d'EssayageAI</p>
+            <button class="btn-white" onclick="window.location.href='#contact'">
+                <i class="fas fa-rocket"></i> C'est parti !
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">👕</span>
+                    <span class="logo-text">Essayage<span class="ai">AI</span></span>
+                </div>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+                <div class="footer-contact">
+                    <a href="mailto:contact@essayageai.com">contact@essayageai.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EssayageAI - Tous droits réservés</p>
+                <p>
+                    <a href="#">Mentions légales</a> | 
+                    <a href="#">Confidentialité</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
