@@ -255,12 +255,14 @@
             margin-bottom: 30px;
         }
 
-        .cta-button {
-            margin: 30px 0;
+        /* Nouveau bouton d'appel à l'action */
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
         }
 
         .btn-large {
-            background: var(--primary);
+            background: var(--success);
             color: white;
             border: none;
             padding: 15px 40px;
@@ -272,12 +274,19 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+            text-decoration: none;
         }
 
         .btn-large:hover {
-            background: var(--primary-dark);
+            background: #3b9e5c;
             transform: translateY(-3px);
+        }
+
+        .btn-note {
+            margin-top: 10px;
+            color: #718096;
+            font-size: 0.9rem;
         }
 
         .trust-badges {
@@ -613,15 +622,6 @@
                 font-size: 1.1rem;
             }
             
-            .cta-button {
-                text-align: center;
-            }
-            
-            .btn-large {
-                padding: 12px 30px;
-                font-size: 1.1rem;
-            }
-            
             .trust-badges {
                 justify-content: center;
             }
@@ -718,7 +718,7 @@
             }
             
             .btn-large {
-                padding: 10px 25px;
+                padding: 12px 25px;
                 font-size: 1rem;
             }
             
@@ -762,8 +762,8 @@
     <div class="top-banner">
         <div class="container">
             <i class="fas fa-clock"></i>
-            <span class="badge">🚀 PROCHAINEMENT</span>
-            <strong>Notre équipe prépare quelque chose de magique pour vous ✨</strong>
+            <span class="badge">🚀 ESSAYAGE VIRTUEL</span>
+            <strong>Essayez vos vêtements avant de les acheter</strong>
         </div>
     </div>
 
@@ -790,10 +790,14 @@
                 <h1>Essayez vos vêtements <span class="highlight">avant d'acheter</span></h1>
                 <p class="subtitle">Prenez une photo en magasin, notre IA génère votre photo avec le vêtement. Magique, non ?</p>
                 
-                <div class="cta-button">
-                    <button class="btn-large" onclick="window.location.href='#features'">
-                        <i class="fas fa-magic"></i> Découvrir
-                    </button>
+                <!-- NOUVEAU BOUTON D'APPEL À L'ACTION -->
+                <div class="cta-section">
+                    <a href="https://app.essayageai.com" class="btn-large">
+                        <i class="fas fa-rocket"></i> Allez, c'est parti !
+                    </a>
+                    <p class="btn-note">
+                        Achetez des essais et essayez vos vêtements virtuellement
+                    </p>
                 </div>
                 
                 <div class="trust-badges">
@@ -927,7 +931,7 @@
         </div>
     </section>
 
-    <!-- Formulaire Brevo (remplace l'ancienne section final-cta) -->
+    <!-- Formulaire Brevo -->
     <div class="sib-form" style="text-align: center; background-color: #EFF2F7; padding: 50px 0;">
         <div id="sib-form-container" class="sib-form-container">
             <div id="error-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px; margin: 0 auto;">
@@ -1026,7 +1030,7 @@
         </div>
     </footer>
 
-    <!-- Scripts Brevo (à placer en bas pour le bon fonctionnement) -->
+    <!-- Scripts Brevo -->
     <script>
         window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
         window.LOCALE = 'fr';
