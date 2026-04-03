@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /downloads/
+Disallow: /admin/
+Disallow: /config/
+
+# Lien exact sans www
+Sitemap: https://essayageai.com/sitemap.xml
